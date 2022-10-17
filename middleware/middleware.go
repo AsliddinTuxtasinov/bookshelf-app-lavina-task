@@ -4,7 +4,8 @@ import (
 	"bookshelf-app/initializers"
 	"bookshelf-app/models"
 	"bookshelf-app/utils"
-	"io"
+	"bytes"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -33,7 +34,8 @@ func Auth(c *gin.Context) {
 		return
 	}
 
-	reqBodyByte, err := io.ReadAll(c.Request.Body)
+	reqBodyByte, err := ioutil.ReadAll(c.Request.Body)
+	c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(reqBodyByte))
 	if err != nil {
 		reqBodyByte = []byte("")
 	}
