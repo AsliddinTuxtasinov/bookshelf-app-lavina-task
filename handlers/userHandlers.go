@@ -3,7 +3,6 @@ package handlers
 import (
 	"bookshelf-app/initializers"
 	"bookshelf-app/models"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
