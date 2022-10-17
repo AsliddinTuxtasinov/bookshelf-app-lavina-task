@@ -50,5 +50,6 @@ func GetUser(c *gin.Context) {
 }
 
 func CleanUp(c *gin.Context) {
-	initializers.DB.Where("key = ?", "HelloTest1").Unscoped().Delete(&models.User{})
+	// initializers.DB.Where("key = ?", "HelloTest1").Unscoped().Delete(&models.User{})
+	initializers.DB.Where("1 = 1").Delete(&models.User{})
 }
