@@ -24,7 +24,7 @@ func CreateUser(c *gin.Context) {
 
 	var user2 models.User 
 	initializers.DB.Where("key = ?", reqBody.Key).Find(&user2)
-	if user2.ID == 0 {
+	if user2.ID != 0 {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"isOk":    false,
 			"message": "Status Internal Server Error",
