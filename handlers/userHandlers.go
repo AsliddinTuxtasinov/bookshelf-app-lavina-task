@@ -22,7 +22,16 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(reqBody)
+	var user2 models.User 
+	initializers.DB.Where("key = ?", reqBody.Key).Find(&user2)
+	if user2.ID == 0 {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"isOk":    false,
+			"message": "Status Internal Server Error",
+		})
+		return
+	}
+	
 	user := models.User{Name: reqBody.Name, Key: reqBody.Key, Secret: reqBody.Secret}
 	if tx := initializers.DB.Create(&user); tx.Error != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
