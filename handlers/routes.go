@@ -22,7 +22,7 @@ func Run() {
 	router.POST("/signup", CreateUser)
 	router.GET("/myself", middleware.Auth, GetUser)
 
-	if err := router.Run(":8080"); err != nil {
+	if err := router.Run(":8000"); err != nil {
 		log.Fatalln(err.Error())
 	}
 }

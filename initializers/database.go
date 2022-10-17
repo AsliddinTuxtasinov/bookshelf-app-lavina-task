@@ -4,27 +4,24 @@ import (
 	"fmt"
 	"log"
 
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
 
-func ConnectToDB() {
+func ConnectToDB() *gorm.DB {
 
 	var err error
-	// dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
-	// dsn := fmt.Sprintf(
-	// 	"%v:%v@tcp(%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",
-	// 	os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"), os.Getenv("DB_NAME"),
-	// )
-	// DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	dsn := "host=localhost user=postgres password=postgres dbname=test port=5432 sslmode=disable"
+	DB, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
-	DB, err = gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Failed to connect to database => ", err)
+		log.Fatalf("Database connection error: %v", err)
+		panic(err)
 	}
 
 	fmt.Println("Connect to database ...")
 
+	return DB
 }
