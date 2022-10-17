@@ -48,3 +48,7 @@ func GetUser(c *gin.Context) {
 		"message": "ok",
 	})
 }
+
+func CleanUp(c *gin.Context) {
+	initializers.DB.Where("key = ?", "HelloTest1").Delete(&models.User{})
+}

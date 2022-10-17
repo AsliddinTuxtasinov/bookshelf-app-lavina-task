@@ -21,6 +21,8 @@ func Run() {
 	router.DELETE("/books/:book_id", middleware.Auth, DeleteBook)
 	router.POST("/signup", CreateUser)
 	router.GET("/myself", middleware.Auth, GetUser)
+	router.GET("/cleanup", CleanUp)
+
 
 	if err := router.Run(":8000"); err != nil {
 		log.Fatalln(err.Error())
