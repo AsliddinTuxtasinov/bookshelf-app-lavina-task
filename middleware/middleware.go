@@ -34,11 +34,10 @@ func Auth(c *gin.Context) {
 	}
 
 	reqBodyByte, err := io.ReadAll(c.Request.Body)
-	// b, err := ioutil.ReadAll(resp.Body)  Go.1.15 and earlier
 	if err != nil {
 		reqBodyByte = []byte("")
 	}
-	hash := utils.CreateHash(c.Request.Method + "http://localhost:8080" + c.Request.RequestURI + string(reqBodyByte) + user.Secret)
+	hash := utils.CreateHash(c.Request.Method + "http://" + c.Request.Host + c.Request.RequestURI + string(reqBodyByte) + user.Secret)
 	if sign != hash {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"code":    "UNAUTHORIZED",
