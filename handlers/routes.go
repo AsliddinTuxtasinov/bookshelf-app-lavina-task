@@ -21,6 +21,7 @@ func Run() {
 	router.DELETE("/books/:book_id", middleware.Auth, DeleteBook)
 	router.POST("/signup", CreateUser)
 	router.GET("/myself", middleware.Auth, GetUser)
+	
 	router.GET("/cleanup", CleanUp)
 
 
